@@ -4,13 +4,40 @@
 [Ubuntu/Bind9](https://hub.docker.com/r/ubuntu/bind9)
 [Bind9/ Youtube](https://youtu.be/syzwLwE3Xq4?list=PL1tIv2QQSZeh1dcbhJlrc4nWaGw-O0-ed)
 
+## Create Docker Network subnet
+
+```bash
+    docker network create --subnet=172.24.0.0/16 shifthunter-net
+```
+
 ## Kubernetes Bind9
 
 ```bash
     kubectl apply -f bind9-deployment.yml
+
+    docker-compose -f ubuntu_bind9.yaml up
+
 ```
+## NSLookUp
+```bash
+    nslookup youtube.com 10.20.3.4
 
 
+    # Should Return
+    Server:     10.20.3.4
+    aDDRESS:    10.20.3.4#53
+
+    Non-authoritative answer:
+    Name: youtube.com
+    Address 64.233.166.93
+    Name: youtube.com
+    Address 64.233.166.190
+    Name: youtube.com
+    Address 64.233.166.913
+    Name: youtube.com
+    Address 64.233.166.136
+    
+```
 ## Scale Delete Pod
 ```bash
     # If you want to simulate what happens if one of the pods just gets lost, you can scale down the deployment
@@ -40,29 +67,6 @@ kubectl delete pod the-deployment-name-12345-f7h9j
 sudo systemclt restart systemd-resolved
 
 ```
-
-
-## NSLookUp
-```bash
-    nslookup youtube.com 10.20.3.4
-
-
-    # Should Return
-    Server:     10.20.3.4
-    aDDRESS:    10.20.3.4#53
-
-    Non-authoritative answer:
-    Name: youtube.com
-    Address 64.233.166.93
-    Name: youtube.com
-    Address 64.233.166.190
-    Name: youtube.com
-    Address 64.233.166.913
-    Name: youtube.com
-    Address 64.233.166.136
-    
-```
-
 
 ## Installs
 ```bash

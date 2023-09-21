@@ -68,6 +68,17 @@ sudo systemclt restart systemd-resolved
 
 ```
 
+## Coy Files into a Pod
+```bash
+    kubectl cp <path-to-your-file>/<file-name> <pod-name>:<fully-qualified-file-name>
+
+    kubectl cp config/db.shifthunter.com bind9-deployment-55f6974ddc-b2gnc:/etc/bind/db.shifthunter.com
+
+    kubectl cp config/named.conf bind9-deployment-55f6974ddc-b2gnc:/etc/bind/named.conf
+
+
+```
+
 ## Installs
 ```bash
    apt-get update

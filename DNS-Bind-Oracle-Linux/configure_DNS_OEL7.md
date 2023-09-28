@@ -1,0 +1,219 @@
+All steps will be performed as root user
+===========================================
+# BIND configuration
+
+## VrtualBox Guest Additions
+```bash
+	On C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso
+
+	Create the Shared Folder to above 
+	General -> Advance Bidirectional for both options
+	
+	apt-get install virtualbox-guest-additions-iso
+```
+
+## 1) set a domain name in the 
+```bash
+	/etc/sysconfig/network-scripts/ifcfg-enp0s3
+``````
+
+
+Example Name: oraexpert.org, mydomain.com, myhome.net etc
+Select the proper ifcfg-<NIC Name> file based on the name of the network interface in your host
+
+2) modify /etc/hosts with FQN (Fully Qualified Name) such as adminsvr.oraexpert.org, myserver.myhome.net etc adding the domain then restart the 
+network using the command below:
+
+service network restart
+
+
+3) Install the BIND related packages and libraries
+
+yum install bind-libs bind bind-utils
+
+
+4) Modify the file /etc/named.conf to add information relevant to us
+
+You have to careful while editing this file as a little mistake in like a missing comma, a colon or a dot may end up in not being able to bring up the named service
+
+
+			//
+			// named.conf
+			//
+			// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+			// server as a caching only nameserver (as a localhost DNS resolver only).
+			//
+			// See /usr/share/doc/bind*/sample/ for example named configuration files.
+			//
+			// See the BIND Administrator's Reference Manual (ARM) for details about the
+			// configuration located in /usr/share/doc/bind-{version}/Bv9ARM.html
+
+			options {
+				listen-on port 53 { 127.0.0.1;192.168.1.67; };
+				listen-on-v6 port 53 { ::1; };
+				directory       "/var/named";
+				dump-file       "/var/named/data/cache_dump.db";
+				statistics-file "/var/named/data/named_stats.txt";
+				memstatistics-file "/var/named/data/named_mem_stats.txt";
+				recursing-file  "/var/named/data/named.recursing";
+				secroots-file   "/var/named/data/named.secroots";
+				allow-query     { localhost; 192.168.1.0/24; };
+
+				/*
+				 - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
+				 - If you are building a RECURSIVE (caching) DNS server, you need to enable
+				   recursion.
+				 - If your recursive DNS server has a public IP address, you MUST enable access
+				   control to limit queries to your legitimate users. Failing to do so will
+				   cause your server to become part of large scale DNS amplification
+				   attacks. Implementing BCP38 within your network would greatly
+				   reduce such attack surface
+				*/
+				recursion yes;
+
+				dnssec-enable yes;
+				dnssec-validation yes;
+
+				/* Path to ISC DLV key */
+				bindkeys-file "/etc/named.root.key";
+
+				managed-keys-directory "/var/named/dynamic";
+
+				pid-file "/run/named/named.pid";
+				session-keyfile "/run/named/session.key";
+			};
+
+			logging {
+				channel default_debug {
+					file "data/named.run";
+					severity dynamic;
+				};
+			};
+
+			zone "." IN {
+				type hint;
+				file "named.ca";
+			};
+			zone "oraexpert.org" IN {
+				type master;
+				 file "/var/named/oraexpert.org.zone";
+				 allow-update { none; };
+			 };
+			zone "1.168.192.in-addr.arpa" IN {
+				 type master;
+				 file "/var/named/1.168.192.in-addr.arpa.zone";
+				 allow-update { none; };
+			};
+
+			include "/etc/named.rfc1912.zones";
+			include "/etc/named.root.key";
+
+
+
+
+4) Modify/Create the 3 Zone files below after changing directory to /var/named and add the contents as mentioned:
+
+[root@adminsvr named]# cd /var/named/
+[root@adminsvr named]# pwd
+/var/named
+
+[root@adminsvr named]# ls -lrt
+
+-rw-r-----. 1 root  named  153 Sep  7 18:28 named.localhost
+-rw-r--r--. 1 root  root   292 Sep  7 19:13 1.168.192.in-addr.arpa.zone
+-rw-r--r--. 1 root  root   391 Sep  7 20:16 oraexpert.org.zone
+
+
+named.localhost content
+========================
+$TTL 1D
+@       IN SOA  @ rname.invalid. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+        NS      @
+        A       127.0.0.1
+        AAAA    ::1
+
+
+oraexpert.org.zone content
+========================
+
+$TTL    1d
+oraexpert.org.  IN    SOA   adminsvr.oraexpert.org. root.oraexpert.org. (
+    100        ; se = serial number
+    8h         ; ref = refresh
+    5m         ; ret = update retry
+    3w         ; ex = expiry
+    3h         ; min = minimum
+    )
+
+    IN    NS    adminsvr.oraexpert.org.
+
+; DNS server
+adminsvr  IN    A    192.168.1.67
+
+
+;Other VMs
+vmlinux1  IN    A    192.168.1.57
+
+
+1.168.192.in-addr.arpa.zone content
+========================
+
+$TTL    1d
+@   IN    SOA   adminsvr.oraexpert.org. root.oraexpert.org. (
+    100        ; se = serial number
+    8h         ; ref = refresh
+    5m         ; ret = update retry
+    3w         ; ex = expiry
+    3h         ; min = minimum
+    )
+
+    IN    NS    adminsvr.oraexpert.org.
+
+57     IN PTR  vmlinux1.oraexpert.org.
+67     IN PTR  adminsvr.oraexpert.org.
+
+[root@adminsvr named]#
+
+
+5) Start named service
+
+service named start
+
+
+6) Make sure the service "named" starts with server reboot
+
+chkconfig named on
+
+7) Add the new DNS1 for the DNS servers's IP address and change any old DNS1 to DNS2 in /etc/sysconfig/network-scripts/ifcfg-enp0s3
+Select the proper ifcfg-<NIC Name> file based on the name of the network interface in your host
+
+DNS1=192.168.1.67
+DNS2=192.168.1.1
+
+8) Restart network services:
+
+service network restart
+
+9) Validate /etc/resolv.conf. Output should be something like 
+
+	# cat /etc/resolv.conf 
+	nameserver 192.168.1.67
+	nameserver 192.168.1.1
+	search oraexpert.log
+
+
+10) Restart named service and test name resolution with nslookup
+
+service named stop
+service named start
+
+-- Test:
+
+nslookup adminsvr
+nslookup vmlinux1
+

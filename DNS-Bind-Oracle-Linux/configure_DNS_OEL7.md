@@ -247,6 +247,8 @@ traceroute 192.168.1.57 -p 53
 
 ## Cmds Summary
 ```bash
+   # Its checks the named files
+	 named-checkconfig
 	
 		chkconfig named on
 

@@ -11,7 +11,7 @@ RUN apt update \
 # Copy configuration files
 COPY configuration/named.conf.options /etc/bind/
 COPY configuration/named.conf.local /etc/bind/
-COPY configuration/db.instar-net.io /etc/bind/zones/
+COPY configuration/db.shifthunter.com /etc/bind/zones/
 
 # Expose Ports
 EXPOSE 53/tcp

@@ -217,3 +217,63 @@ service named start
 nslookup adminsvr
 nslookup vmlinux1
 
+
+telnet 192.168.1.67 53
+
+telnet 192.168.1.57 53
+
+traceroute 192.168.1.67 -p 53
+
+traceroute 192.168.1.57 -p 53
+
+
+## getenforce  Turning off **SELINUX=disabled**
+* for Boths or ***all*** VMs 
+```bash
+	nano /etc/selinux/config
+		...
+	SELINUX=enforcing   
+	to
+	SELINUX=disabled
+
+ # It must Shutdhown
+shutdown -r 0
+
+
+```
+
+## Cmds Summary
+```bash
+	
+		chkconfig named on
+
+		service network stop
+		
+		systemctl named stop
+		systemctl named start
+		systemctl named status
+		
+		chkconfig named on
+
+		// Depends on Which Linux Version
+		systemctl restart systemd-networkd	
+
+
+  # Firewall
+	service firewalld stop
+
+	systemctl firewalld start
+
+  # Issue the following command to open port 1191 for TCP traffic.
+	firewall-cmd --add-port 1191/tcp		
+
+	# Issue the following command to open port 1191 for TCP traffic after reboot. Use this command to make changes persistent.
+	firewall-cmd --permanent --add-port 1191/tcp
+	
+	# Issue the following command to open a range a range of ports.
+	firewall-cmd --permanent --add-port 60000-61000/tcp
+
+```
+
+
+

@@ -1,0 +1,32 @@
+acl internal {
+	10.0.2.0/15;
+    10.10.0.0/16;
+    10.11.0.0/16;
+    10.20.0.0/16;
+    10.50.0.0/16;
+};
+
+// allow only LAN traffic from 192.168.1.0-192.168.1.255
+acl LAN {
+	192.168.1.0/24;
+};
+
+options {
+	directory "/var/cache/bind"; // default directory
+	allow-query { localhost; LAN; }; // allow queries from localhost and 192.168.2.0-192.168.2.255
+	forwarders {127.0.0.1; 8.8.8.8; 8.8.4.4;};
+    allow-transfer { none; };
+    recursion no;
+    allow-query     { localhost; internal; LAN; };
+    listen-on { any; };
+
+    forwarders {
+            8.8.8.8;
+            4.4.4.4;
+    };
+};
+
+zone "shifthunter.com" IN {
+    type master;
+    file "/etc/bind/db.shifthunter.com;
+};

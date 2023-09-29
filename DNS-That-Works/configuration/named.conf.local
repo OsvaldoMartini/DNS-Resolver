@@ -1,4 +1,4 @@
-zone "instar-net.io" {
+zone "shifthunter.com" {
     type master;
-    file "/etc/bind/zones/db.instar-net.io";
+    file "/etc/bind/zones/db.shifthunter.com";
 };

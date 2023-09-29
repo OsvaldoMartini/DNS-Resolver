@@ -235,6 +235,10 @@ traceroute 192.168.1.57 -p 53
 ## getenforce  Turning off **SELINUX=disabled**
 * for Boths or ***all*** VMs 
 ```bash
+ usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]
+ setenforce 1 # Enforcing
+ setenforce 0 # Permissive
+
 	nano /etc/selinux/config
 		...
 	SELINUX=enforcing   
@@ -282,7 +286,40 @@ traceroute 192.168.1.57 -p 53
 	# Issue the following command to open a range a range of ports.
 	firewall-cmd --permanent --add-port 60000-61000/tcp
 
+  firewall-cmd --add-port 53/tcp --add-port 53/udp --permanent 
+
+	firewall-cmd --reload	
+	
+	firewall-cmd --list-ports
+
+	nano /etc/resolv.conf
+
 ```
 
+## CH Root is is enabled
+```bash
+	mount | grep chroot
+
+	# To Enalbe it
+/usr/libexec/setup-named-chroot.sh /var/named/chroot on
+
+  # CREATE THE DIRECTORY IF IN CASE DOESN'T EXIST
+mkdir /var/named/chroot/usr/lib64/named
+ 
+AND TRY TO CREATE  IT AGAIN
+
+/usr/libexec/setup-named-chroot.sh /var/named/chroot on
+
+ mount | grep chroot
+
+ systemctl status named-chroot
+
+ systemctl start named-chroot
+
+ ss -anl | grep ":53"
+
+
+
+```
 
 

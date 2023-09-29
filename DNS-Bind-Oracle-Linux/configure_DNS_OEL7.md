@@ -247,21 +247,25 @@ traceroute 192.168.1.57 -p 53
 
 ## Cmds Summary
 ```bash
-   # Its checks the named files
-	 named-checkconfig
-	
-		chkconfig named on
+	# Its checks the named files
+	named-checkconfig
 
-		service network stop
-		
-		systemctl named stop
-		systemctl named start
-		systemctl named status
-		
-		chkconfig named on
+	named-checkzone adminsvr /var/named/shifthunter.com.zone
 
-		// Depends on Which Linux Version
-		systemctl restart systemd-networkd	
+	named-checkzone adminsvr /var/named/1.168.192.in-addr.arpa.zone
+
+	chkconfig named on
+
+	service network stop
+
+	systemctl named stop
+	systemctl named start
+	systemctl named status
+
+	chkconfig named on
+
+	// Depends on Which Linux Version
+	systemctl restart systemd-networkd	
 ```
 
 ## Firewall

@@ -144,7 +144,7 @@ shifthunter.com.zone content
 ========================
 
 $TTL    1d
-shifthunter.com.  IN    SOA   adminsvr.shifthunter.com. root.shifthunter.com. (
+@  IN    SOA   adminsvr.shifthunter.com. root.shifthunter.com. (
     100        ; se = serial number
     8h         ; ref = refresh
     5m         ; ret = update retry
@@ -298,10 +298,13 @@ traceroute 192.168.1.57 -p 53
 
 ## CH Root is is enabled
 ```bash
-	mount | grep chroot
 
-	# To Enalbe it
+# To Enalbe it
 /usr/libexec/setup-named-chroot.sh /var/named/chroot on
+
+mount | grep chroot
+
+
 
   # CREATE THE DIRECTORY IF IN CASE DOESN'T EXIST
 mkdir /var/named/chroot/usr/lib64/named
@@ -316,10 +319,47 @@ AND TRY TO CREATE  IT AGAIN
 
  systemctl start named-chroot
 
+ systemctl enable named-chroot.service
+
+
  ss -anl | grep ":53"
+```
+## Windows  Configs
 
+![Network](DNS-Properties-On-Windodws-1.png)
+## DNS Name
+![Network](DNS-Properties-On-Windodws-2.png)
 
+## Windows Hostname
+```cmd
+	hostname 
 
+	c:> WIN-BK6RHQNLS4K
 ```
 
+## Include the Hostname on  
+* 1) /var/named/shifthunter.com.zone
 
+* 2) /var/named/1.168.192.in-addr.arpa
+
+```bash
+
+# Lookup
+# /var/named/shifthunter.com.zone
+...
+WIN-BK6RHQNLS4K  IN     A    192.168.1.47
+
+# Reverse lookup
+# /var/named/1.168.192.in-addr.arpa
+...
+47     IN PTR  WIN-BK6RHQNLS4K.shifthunter.com
+
+service named stop
+service named start
+service named status
+
+systemctl network restart
+or
+systemctl restart named-chroot
+
+```

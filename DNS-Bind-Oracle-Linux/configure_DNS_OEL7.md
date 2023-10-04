@@ -364,6 +364,25 @@ service named status
 systemctl network restart
 or
 systemctl restart named-chroot
+```
+
+## Permission to a file
+```bash	
+
+	chwn -R apache:apache index.html
+	chmod -R 775 index.html
+
+	# Create the confi file for each WebPage
+  nano /etc/httpd/conf.d/firt_web.conf
+
+
+For example:
+
+chmod 777 foldername will give read, write, and execute permissions for everyone.
+
+chmod 700 foldername will give read, write, and execute permissions for the user only.
+
+chmod 327 foldername will give write and execute (3) permission for the user, w (2) for the group, and read, write, and execute for the users.
 
 ```
 

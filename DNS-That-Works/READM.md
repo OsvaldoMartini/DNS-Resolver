@@ -7,6 +7,14 @@
 
 ```bash
     docker network create --subnet=172.24.0.0/16 instar-net
+
+    docker network create --subnet=172.25.0.0/16 instar-net
+
+
+    docker network ls --format "{{.Name}}" | while read i; do echo $i --- $(docker network inspect $i | grep Subnet); done
+
+    docker network inspect $(docker network ls -q)|grep -E "IPv(4|6)A"
+
 ```
 
 ## Build the Docker Image
@@ -16,7 +24,7 @@
 
 ## Run the Container
 ```bash
-    docker run -d --rm --name=ddns-master --net=instar-net --ip=172.24.0.2 ddns-master
+    docker run -d --rm --name=ddns-master --net=instar-net --ip=172.25.0.2 ddns-master
 ```
 
 ## Veriry My Server configuration

@@ -323,6 +323,9 @@ AND TRY TO CREATE  IT AGAIN
 
 
  ss -anl | grep ":53"
+
+ netstat -antp
+
 ```
 ## Windows  Configs
 
@@ -363,3 +366,4 @@ or
 systemctl restart named-chroot
 
 ```
+

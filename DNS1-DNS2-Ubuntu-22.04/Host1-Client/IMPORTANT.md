@@ -9,7 +9,7 @@
  # Ubuntu
  amazonlinux$  ip address show to 10.128.0.0/16 
 
-  # Ubuntu
+ # Ubuntu
  vmlilnux1$  ip address show to 10.128.0.0/16 
 
 ```

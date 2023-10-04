@@ -22,3 +22,33 @@
 ```bash
   sudo nano /etc/netplan/00-private-nameservers.yaml
 ```
+
+# NetPlan
+```bash
+
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: true
+
+sudo netplan generate # generate config files
+
+sudo netplan apply # apply config
+
+reboot # reboot the compute
+```
+# Install sudo apt install yamllint.
+```bash
+ sudo apt install yamllint
+ 
+ # Check Validate the File
+ yamllint /etc/netplan/01-network-manager-all.yaml
+ # Expected:
+ 01-network-manager-all.yaml
+  1:81      error    line too long (203 > 80 characters)  (line-length)
+  1:202     error    trailing spaces  (trailing-spaces)
+  2:8       error    syntax error: mapping values are not allowed here (syntax)
+
+```

@@ -1,0 +1,11 @@
+zone "shifthunter.com" {
+    type slave;
+    file "db.shifthunter.com";
+    masters { 192.168.1.65; };
+};
+
+zone "1.168.192.in-addr.arpa" {
+    type slave;
+    file "db.192.168.1";
+    masters { 192.168.1.65; };
+};

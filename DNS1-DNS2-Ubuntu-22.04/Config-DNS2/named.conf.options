@@ -1,0 +1,24 @@
+acl "trusted" {
+        192.168.1.65;    # ns1 
+        192.168.1.66;    # ns2
+        192.168.1.63;    # host1 -> amazonlinux
+        192.168.1.57;    # host2 -> vmlinux1
+};
+
+options {
+        directory "/var/cache/bind";
+        recursion yes;                 # enables recursive queries
+        allow-recursion { trusted; };  # allows recursive queries from "trusted" clients
+        listen-on { 192.168.1.66; };   # ns2 private IP address - listen on private network only
+        allow-transfer { none; };      # disable zone transfers by default
+
+        forwarders {
+                8.8.8.8;
+                8.8.4.4;
+        };
+
+        dnssec-validation auto;
+
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};

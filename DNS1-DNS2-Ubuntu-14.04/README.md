@@ -2,10 +2,6 @@
 
 [How To Configure Bind as an Authoritative-Only DNS Server on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-an-authoritative-only-dns-server-on-ubuntu-14-04)
 
-
-[How To Configure BIND as a Private Network DNS Server on Ubuntu 22.04](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-ubuntu-22-04)
-
-
 # VERY IMPORTANT
 
 ## EVERYTIME CHANGING THE FILES

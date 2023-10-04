@@ -1,0 +1,21 @@
+$TTL    604800
+@       IN      SOA     shifthunter.com.com. admin.shifthunter.com.com. (
+                              6         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+; name servers
+      IN      NS      ns1.shifthunter.com.com.
+      IN      NS      ns2.shifthunter.com.com.
+
+; PTR Records
+65       IN      PTR      ns1.shifthunter.com.
+66       IN      PTR      ns2.shifthunter.com.
+63       IN      PTR      amazonlinux.shifthunter.com.
+57       IN      PTR      vmlinux1.shifthunter.com.
+
+;11.10   IN      PTR     ns1.shifthunter.com.com.    ; 10.128.10.11
+;12.20   IN      PTR     ns2.shifthunter.com.com.    ; 10.128.20.12
+;101.100 IN      PTR     host1.shifthunter.com.com.  ; 10.128.100.101
+;102.200 IN      PTR     host2.shifthunter.com.com.  ; 10.128.200.102

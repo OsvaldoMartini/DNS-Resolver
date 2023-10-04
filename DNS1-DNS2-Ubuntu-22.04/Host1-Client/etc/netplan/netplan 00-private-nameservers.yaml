@@ -1,0 +1,9 @@
+network:
+    version: 2
+    ethernets:
+        eth1:                                    # Private network interface
+            nameservers:
+                addresses:
+                - 192.168.1.65                # Private IP for ns1
+                - 192.168.1.66                # Private IP for ns2
+                search: [ shifthunter.com ]   # DNS zone

@@ -5,6 +5,8 @@
 
 [X11-Forwarding](https://aws.amazon.com/blogs/compute/how-to-enable-x11-forwarding-from-red-hat-enterprise-linux-rhel-amazon-linux-suse-linux-ubuntu-server-to-support-gui-based-installations-from-amazon-ec2/)
 
+[kafka-aws-setup](https://github.com/abhinavdhasmana/kafka-aws-setup/tree/master)
+
 ```bash
   # Install JDK
   su -c "yum install java-1.8.0-openjdk-devel"
@@ -246,4 +248,10 @@ stable"
 sudo apt-get update
 
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose
+```
+
+# JMeter  Heap Increasing its heap size
+## Run jmeter by giving by increasing its heap size
+```bash
+  jmeter HEAP=”-Xms512m -Xmx24g” -n -t Kafka-15K-Per-Seconds-Load-Test.jmx
 ```

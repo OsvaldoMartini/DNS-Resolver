@@ -113,7 +113,7 @@ Last login: Sat Sep 30 11:31:15 2023
 ```
 
 
-## Lnux Version
+## Linux Version
 ```bash
   cat /etc/os-release
   lsb_release -a

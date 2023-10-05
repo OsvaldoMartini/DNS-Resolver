@@ -39,3 +39,15 @@ OK
 ```bash
   sudo tail -f /var/log/syslog
 ```
+
+# Set Host Name Ubuntu
+```bash
+  # Info
+  hostnamectl
+
+  #Set Hostname
+  sudo hostname dnsserver
+
+ # It Sets Static hostname
+  hostnamectl set-hostname new-hostname
+```

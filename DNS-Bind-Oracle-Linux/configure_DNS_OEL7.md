@@ -2,7 +2,7 @@ All steps will be performed as root user
 ===========================================
 # BIND configuration
 
-## VrtualBox Guest Additions
+## VirtualBox Guest Additions
 ```bash
 	On C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso
 

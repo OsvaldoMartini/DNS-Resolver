@@ -1,0 +1,31 @@
+# Um arquivo .YAML é usado para exportar registros DNS a um domínio
+# gerenciado pelo Google Cloud. O formato é
+# exclusivo dos domínios do Google Cloud DNS.
+
+---
+kind: dns#resourceRecordSet
+name: 'shifthunter.com.'
+rrdatas:
+- '185.199.109.153'
+- '185.199.110.153'
+- '185.199.111.153'
+- '185.199.108.153'
+ttl: 300
+type: A
+---
+kind: dns#resourceRecordSet
+name: '*.shifthunter.com.'
+rrdatas:
+- '185.199.108.153'
+- '185.199.109.153'
+- '185.199.110.153'
+- '185.199.111.153'
+ttl: 300
+type: A
+---
+kind: dns#resourceRecordSet
+name: 'www.shifthunter.com.'
+rrdatas:
+- 'rafaelmartini.github.io/react-login-mysql-dashboard.'
+ttl: 300
+type: CNAME

@@ -1,0 +1,16 @@
+; Um arquivo BIND é um arquivo .TXT que é usado para exportar
+; registros DNS de um domínio para outro. Arquivos
+; BIND são geralmente usados por vários registradores
+; de domínio. Devido a isso, eles são uma ótima escolha se você
+; está exportando registros de recurso para um domínio que é
+; gerenciado por um registrador diferente.
+
+shifthunter.com. 300 IN A 185.199.109.153
+shifthunter.com. 300 IN A 185.199.110.153
+shifthunter.com. 300 IN A 185.199.111.153
+shifthunter.com. 300 IN A 185.199.108.153
+*.shifthunter.com. 300 IN A 185.199.108.153
+*.shifthunter.com. 300 IN A 185.199.109.153
+*.shifthunter.com. 300 IN A 185.199.110.153
+*.shifthunter.com. 300 IN A 185.199.111.153
+www.shifthunter.com. 300 IN CNAME rafaelmartini.github.io/react-login-mysql-dashboard.

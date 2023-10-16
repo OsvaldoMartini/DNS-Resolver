@@ -1,0 +1,25 @@
+acl "trusted" {
+        192.168.1.50;  # ns1 - admin-node -> can be set to localhost
+        192.168.1.55;  # ns2 -> master-node -> kafka - Server
+        192.168.1.60;  # worker01-node -> Web Apps 
+        192.168.1.70;  # worker02-node -> Java Apps
+        192.168.1.63;  # amazonlinux -> AWS Linux 2
+};
+
+options {
+        directory "/var/cache/bind";
+        recursion yes;                 # enables recursive queries
+        allow-recursion { trusted; };  # allows recursive queries from "trusted" clients
+        listen-on { 192.168.1.50; };   # ns1 private IP address - listen on private network only
+        allow-transfer { none; };      # disable zone transfers by default
+
+        forwarders {
+                8.8.8.8;
+                8.8.4.4;
+        };
+
+        dnssec-validation auto;
+
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};

@@ -1,0 +1,21 @@
+$TTL    604800
+@       IN      SOA     intranet.com. admin.intranet.com. (
+                              7         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+; name servers
+      IN      NS      ns1.intranet.com.
+      IN      NS      ns2.intranet.com.
+
+; PTR Records
+65       IN      PTR      ns1.intranet.com.
+66       IN      PTR      ns2.intranet.com.
+63       IN      PTR      amazonlinux.intranet.com.
+57       IN      PTR      vmlinux1.intranet.com.
+
+;11.10   IN      PTR     ns1.intranet.com.    ; 10.128.10.11
+;12.20   IN      PTR     ns2.intranet.com.    ; 10.128.20.12
+;101.100 IN      PTR     host1.intranet.com.  ; 10.128.100.101
+;102.200 IN      PTR     host2.intranet.com.  ; 10.128.200.102

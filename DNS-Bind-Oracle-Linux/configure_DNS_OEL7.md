@@ -3,7 +3,48 @@ All steps will be performed as root user
 # BIND configuration
 
 ## VirtualBox Guest Additions
+
+ VBoxGuestAdditions  on DDbian
+[VBoxGuestAdditions Debian](https://linuxize.com/post/how-to-install-virtualbox-guest-additions-on-debian-10/)
+Open the Debian guest terminal, create a new directory , and mount the ISO file:
+
 ```bash
+sudo mkdir -p /mnt/cdrom
+
+sudo mount /dev/cdrom /mnt/cdrom
+```
+Navigate to the directory and execute the VBoxLinuxAdditions.run script to install the Guest Additions:
+```bash
+cd /mnt/cdrom
+
+sudo sh ./VBoxLinuxAdditions.run --nox11
+```
+The --nox11 option tells the installer not to spawn an xterm window.
+The output will look like below:
+```bash
+Verifying archive integrity... All good.
+Uncompressing VirtualBox 6.0.16 Guest Additions for Linux........
+...
+...
+VirtualBox Guest Additions: Starting.
+```
+Reboot the Debian guest for changes to take effect:
+```bash
+sudo shutdown -r now
+```
+Once the virtual machine is booted, log into it and verify that the installation was successful and the kernel module is loaded using the lsmod command:
+```bash
+lsmod | grep vboxguest
+
+# Expected:
+vboxguest             348160  2 vboxsf
+```
+
+```bash
+ Folder
+  shared/usr/share/virtualbox VBoxGuestAdditions.iso
+
+
 	On C:/Program Files/Oracle/VirtualBox/VBoxGuestAdditions.iso
 
 	Create the Shared Folder to above 

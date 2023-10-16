@@ -1,0 +1,12 @@
+zone "intranet.com" {
+    type slave;
+    file "db.intranet.com";
+    master { 192.168.1.50; }; # ns1 private IP address - secondary
+};
+
+
+zone "1.168.192.in-addr.arpa" {
+    type slave;
+    file "db.192.168.1";
+    master { 192.168.1.50; };  # ns1 private IP address - secondary
+};

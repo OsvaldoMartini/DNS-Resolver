@@ -1,0 +1,12 @@
+zone "intranet.com" {
+    type primary;
+    file "/etc/bind/zones/db.intranet.com";
+    allow-transfer { 192.168.1.55; }; # ns2 private IP address - secondary
+};
+
+
+zone "1.168.192.in-addr.arpa" {
+    type primary;
+    file "/etc/bind/zones/db.192.168.1";
+    allow-transfer { 192.168.1.55; };  # ns2 private IP address - secondary
+};
